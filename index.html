@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MuholoPay — Earn. Grow. Get Paid.</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+
+        body{
+            background: #fcfdff;
+            color: #222;
+        }
+
+        header{
+            padding: 22px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: #ffffffea;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 3px 20px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+
+        .logo{
+            font-size: 30px;
+            font-weight: 800;
+            color: #085ef7;
+            letter-spacing: -1px;
+        }
+
+        nav a{
+            margin-left: 20px;
+            font-weight: 500;
+            text-decoration: none;
+            color: #444;
+        }
+        nav a:hover{
+            color: #085ef7;
+        }
+
+        /* Hero Section */
+        .hero{
+            padding: 100px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #085ef7, #5ac8ff);
+            color: white;
+            animation: fadeIn 1.2s ease;
+        }
+
+        @keyframes fadeIn{
+            from{ opacity: 0; transform: translateY(20px); }
+            to{ opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1{
+            font-size: 52px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p{
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-btn{
+            background: white;
+            color: #085ef7;
+            padding: 16px 35px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+            transition: 0.3s;
+        }
+        .cta-btn:hover{
+            background: #e8f1ff;
+        }
+
+        /* Features Section */
+        .features{
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .features h2{
+            font-size: 38px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            color: #0b5ef7;
+        }
+
+        .feature-grid{
+            max-width: 1100px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card{
+            background: white;
+            padding: 45px 30px;
+            border-radius: 14px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+            transition: 0.3s;
+            position: relative;          /* Needed so video stays inside */
+            overflow: hidden;            /* Clips video so it stays inside the card */
+    
+        }
+
+        .bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;           /* Keep video behind text */
+            opacity: 0.35;         /* Make text readable */
+            pointer-events: none;  /* IMPORTANT: remove hover interaction */
+            border-radius: 14px;        /* Match card shape */
+        }
+        .feature-card:hover{
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
+
+        .feature-card h3{
+            color: #085ef7;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* Trust Section */
+        .trust{
+            text-align: center;
+            padding: 60px 40px;
+            background: #f5f9ff;
+        }
+        .trust h2{
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #085ef7;
+            font-weight: 800;
+        }
+        .trust p{
+            font-size: 18px;
+            color: #444;
+        }
+
+        #success-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 35px 25px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+}
+
+.modal-content h2 {
+    color: #085ef7;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.modal-content button {
+    background: #085ef7;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+        /* Waitlist Section */
+        .waitlist{
+            padding: 90px 40px;
+            background: #085ef7;
+            color: white;
+            text-align: center;
+        }
+
+        .waitlist h2{
+            font-size: 36px;
+            font-weight: 800;
+        }
+
+        .waitlist p{
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .waitlist form{
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .waitlist input, .waitlist select{
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        .waitlist button{
+            width: 100%;
+            padding: 16px;
+            border: none;
+            background: white;
+            color: #085ef7;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        footer{
+            padding: 20px;
+            text-align: center;
+            background: #f1f4f8;
+            font-size: 14px;
+            color: #444;
+        }
+
+        @media(max-width: 600px){
+            .hero h1{
+                font-size: 34px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">EasyPay<span>Pro</span></div>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#waitlist">Waitlist</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Banking Made <span>Simple</span> & Secure</h1>
+        <p>Manage your money with confidence. Track transactions, send payments, save and invest smarter with EasyPayPro. All in one </p>
+        Fast payments. Easy growth. Real opportunities to grow.</p>
+        <a href="#waitlist" class="cta-btn">Join the Early Access List</a>
+        
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <h2>What Makes MuholoPay Powerful</h2>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <video class="bg-video" autoplay loop muted playsinline>
+                    <source src="4.mp4" type="video/mp4">
+                </video>
+                <h3>Instant Payouts and withdrawals</h3>
+                <p>Withdraw money instantly to mobile wallets & other payment options Globally.</p>
+            </div>
+
+            <div class="feature-card">
+                 <video class="bg-video" autoplay loop muted playsinline>
+                    <source src="5.mp4" type="video/mp4">
+                </video>
+                <h3>Smart Dashboard</h3>
+                <p>Track your earnings, trends and growth metrics easily.</p>
+            </div>
+
+           <div class="feature-card">
+             <video class="bg-video" autoplay loop muted playsinline>
+                    <source src="1.mp4" type="video/mp4">
+                </video>
+                <h3>Invest in Stocks</h3>
+                <p>Buy shares from top global companies and grow your wealth with real-time market updates.</p>
+            </div>
+
+            <div class="feature-card">
+                 <video class="bg-video" autoplay loop muted playsinline>
+                    <source src="3.mp4" type="video/mp4">
+                </video>
+                <h3>Invest in Crypto</h3>
+                <p>Trade leading cryptocurrencies instantly with secure wallets and transparent price tracking.</p>
+            </div>
+
+            <div class="feature-card">
+                 
+                    <img class="bg-video"
+                     src="123.png"> 
+                
+                <h3>Invest in ETFs</h3>
+                <p>Diversify easily by investing in bundles of assets managed by top market experts.</p>
+            </div>
+
+             <div class="feature-card">
+                 
+                    <img class="bg-video"
+                     src="Screenshot (382).png"> 
+                
+                <h3>Manage investment portfolio</h3>
+                <p>Easily manage by investing in the assets provided and managed by top market experts.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+    <h2>Why Choose EasyPayPro?</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041870.png" alt="Secure" width="240px" height="240px">
+        <h3>Bank-Grade Security</h3>
+        <p>We protect your transactions with the latest encryption and security protocols.</p>
+      </div>
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/2920/2920329.png" alt="Transactions" width="240px" height="240px">
+        <h3>Instant Transactions</h3>
+        <p>Send and receive payments globally in seconds with no hidden fees.</p>
+      </div>
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176361.png" alt="Analytics" width="240px" height="240px">
+        <h3>Smart Insights</h3>
+        <p>Track spending habits, set budgets, and grow your savings with ease.</p>
+      </div>
+    </div>
+  </section>
+
+    <!-- Trust -->
+    <section class="trust">
+        <h2>Built for Users Who Want Growth</h2>
+        <p>We listen to your feedback and build features based on what matters most.</p>
+    </section>
+
+    <!-- Waitlist -->
+   <section class="waitlist" id="waitlist">
+  <h2>Join the MuholoPay Early Access List</h2>
+  <p>Be the first to try the platform when we launch.</p>
+
+ <form id="waitlist-form">
+    <input type="text" id="name" name="name" placeholder="Your Name" required>
+    <input type="email" id="email" name="email" placeholder="Your Email Address" required>
+    <input type="text" id="country" name="country" placeholder="Country" required>
+
+    <select id="interest" name="interest" required>
+        <option value="">What are you most excited about?</option>
+        <option value="Instant withdrawals and fast payments">Instant withdrawals and fast payments</option>
+        <option value="Investment platforms within EasyPay">Investment platforms within EasyPay</option>
+        <option value="Smart dashboard">Smart dashboard</option>
+        <option value="All features">Everything 🤝</option>
+    </select>
+
+    <button type="submit">Join the Waitlist</button>
+</form>
+</section>
+
+<!-- Popup Modal -->
+<div id="success-modal" style="
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.7);
+    justify-content:center;
+    align-items:center;
+">
+  <div class="modal-content" style="
+      background:#fff;
+      padding:25px;
+      border-radius:10px;
+      width:90%;
+      max-width:350px;
+      text-align:center;
+  ">
+      <h2>You're on the Waitlist!</h2>
+      <p>Thank you for signing up. We will notify you via email when the platform goes live.</p>
+      <button id="close-modal" style="
+          margin-top:15px;
+          padding:10px 20px;
+          background:#000;
+          color:#fff;
+          border:none;
+          border-radius:6px;
+          cursor:pointer;
+      ">Close</button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    © 2025 MuholoPay — All Rights Reserved.
+</footer>
+
+<!-- Firebase SDKs (Compat Version - Easiest for Beginners) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCsoLURhMgKmzyMungdnVjlYBmPWdDaY7E",
+    authDomain: "muholopay.firebaseapp.com",
+    projectId: "muholopay",
+    storageBucket: "muholopay.firebasestorage.app",
+    messagingSenderId: "669117196190",
+    appId: "1:669117196190:web:5fb23834f042ed7591988f"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  const form = document.getElementById("waitlist-form");
+  const modal = document.getElementById("success-modal");
+  const closeModal = document.getElementById("close-modal");
+
+  form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const country = document.getElementById("country").value;
+      const interest = document.getElementById("interest").value;
+
+      try {
+          await db.collection("waitlist").add({
+              name,
+              email,
+              country,
+              interest,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          });
+
+          modal.style.display = "flex"; // show success popup
+          form.reset();
+      } catch (error) {
+          alert("Error adding to waitlist: " + error.message);
+      }
+  });
+
+  closeModal.addEventListener("click", () => {
+      modal.style.display = "none"; // close modal
+  });
+</script>
+
+</body>
+</html>

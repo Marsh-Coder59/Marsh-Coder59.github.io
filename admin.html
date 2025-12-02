@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MuholoPay Admin Panel</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+  header { font-size: 28px; font-weight: bold; margin-bottom: 20px; color: #085ef7; }
+  .modal-bg { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; }
+  .modal { background:#fff; padding: 30px; border-radius:10px; text-align:center; }
+  input { display:block; margin: 15px 0; padding:10px; width:100%; }
+  button { padding: 10px 20px; background: #085ef7; color:#fff; border:none; cursor:pointer; border-radius:6px; }
+  table { width:100%; border-collapse: collapse; margin-top: 20px; }
+  th, td { border:1px solid #ddd; padding: 12px; text-align:left; }
+  th { background: #085ef7; color:white; }
+</style>
+</head>
+<body>
+
+<header>MuholoPay Admin Panel</header>
+
+<!-- Login Modal -->
+<div class="modal-bg" id="login-modal">
+  <div class="modal">
+    <h2>Admin Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button id="login-btn">Login</button>
+  </div>
+</div>
+
+<div class="container" id="admin-container" style="display:none;">
+  <h2>Waitlist Entries</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Country</th>
+        <th>Interest</th>
+        <th>Signed Up At</th>
+      </tr>
+    </thead>
+    <tbody id="waitlist-entries">
+      <!-- Entries will appear here -->
+    </tbody>
+  </table>
+</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCsoLURhMgKmzyMungdnVjlYBmPWdDaY7E",
+  authDomain: "muholopay.firebaseapp.com",
+  projectId: "muholopay",
+  storageBucket: "muholopay.firebasestorage.app",
+  messagingSenderId: "669117196190",
+  appId: "1:669117196190:web:5fb23834f042ed7591988f"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// ---------- Admin Login ----------
+const loginModal = document.getElementById("login-modal");
+const loginBtn = document.getElementById("login-btn");
+const adminContainer = document.getElementById("admin-container");
+
+const ADMIN_USERNAME = "admin";
+const ADMIN_PASSWORD = "tony123";
+
+loginBtn.addEventListener("click", ()=>{
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  if(username === ADMIN_USERNAME && password === ADMIN_PASSWORD){
+    loginModal.style.display = "none";
+    adminContainer.style.display = "block";
+    loadWaitlist();
+  } else {
+    alert("Invalid credentials. Try again!");
+  }
+});
+
+// ---------- Load Waitlist in real-time ----------
+function loadWaitlist(){
+  const tbody = document.getElementById("waitlist-entries");
+  db.collection("waitlist").onSnapshot(snapshot => {
+    tbody.innerHTML = "";
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const tr = document.createElement("tr");
+      const timestamp = data.timestamp ? new Date(data.timestamp.seconds*1000).toLocaleString() : "N/A";
+      tr.innerHTML = `
+        <td>${data.name || "N/A"}</td>
+        <td>${data.email || "N/A"}</td>
+        <td>${data.country || "N/A"}</td>
+        <td>${data.interest || "N/A"}</td>
+        <td>${timestamp}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  });
+}
+</script>
+
+</body>
+</html>
