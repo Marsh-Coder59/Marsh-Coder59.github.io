@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Investments - Muholo Invest</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #0a0f1c;
+      color: #e8f1ff;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    /* CARD */
+    .card {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.35);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 0 22px rgba(59,130,246,0.25);
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 26px;
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      border: 1px solid #1e3a8a;
+    }
+
+    .logo {
+      background: #3b82f6;
+      color: #fff;
+      font-weight: 800;
+      font-size: 22px;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      box-shadow: 0 0 12px rgba(59,130,246,0.45);
+    }
+
+    h1 {
+      font-size: 1.8em;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .small {
+      color: #9cb3d1;
+      font-size: 0.9em;
+    }
+
+    /* BUTTON */
+    .button {
+      background: #3b82f6;
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      padding: 10px 22px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(59,130,246,0.35);
+    }
+
+    .button:hover {
+      background: #2563eb;
+      box-shadow: 0 0 18px rgba(59,130,246,0.45);
+    }
+
+    h2 {
+      font-size: 1.4em;
+      margin-bottom: 18px;
+      color: #cfe1ff;
+    }
+
+    /* OPTIONS GRID */
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .option-btn {
+      background: #1a2333;
+      border: 1px solid #2a3a52;
+      border-radius: 14px;
+      padding: 18px 22px;
+      min-width: 260px;
+      color: #e8f1ff;
+      cursor: pointer;
+      transition: 0.25s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .option-btn:hover {
+      background: #223048;
+      border-color: #3b82f6;
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(59,130,246,0.25);
+    }
+
+    .option-btn strong {
+      font-size: 1.08em;
+      color: #e8f1ff;
+    }
+
+    .icon-btn {
+      background: #3b82f6;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85em;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(59,130,246,0.4);
+    }
+
+    .icon-btn:hover {
+      background: #2563eb;
+      box-shadow: 0 0 16px rgba(59,130,246,0.55);
+    }
+
+    @media(max-width:600px){
+      .option-btn {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="card header">
+      <div class="logo">MI</div>
+      <div>
+        <h1>Investments</h1>
+        <div class="small">Overview & quick actions</div>
+      </div>
+      <div style="margin-left:auto">
+        <button class="button" onclick="location.href='comingsoon.html'">Add Funds</button>
+      </div>
+    </div>
+
+    <div style="height:24px"></div>
+
+    <!-- OPTIONS -->
+    <div class="card">
+      <h2>Where would you like to invest?</h2>
+
+      <div class="options">
+
+        <button class="option-btn" onclick="location.href='comingsoon.html'">
+          <div>
+            <strong>Stocks</strong>
+            <div class="small">U.S. & Intl stocks</div>
+          </div>
+          <div class="icon-btn">Open</div>
+        </button>
+
+        <button class="option-btn" onclick="location.href='comingsoon.html'">
+          <div>
+            <strong>Crypto</strong>
+            <div class="small">Major coins</div>
+          </div>
+          <div class="icon-btn">Open</div>
+        </button>
+
+        <button class="option-btn" onclick="location.href='comingsoon.html'">
+          <div>
+            <strong>Plans</strong>
+            <div class="small">Fixed ROI products</div>
+          </div>
+          <div class="icon-btn">Open</div>
+        </button>
+
+        <button class="option-btn" onclick="location.href='comingsoon.html'">
+          <div>
+            <strong>Portfolio</strong>
+            <div class="small">Your holdings</div>
+          </div>
+          <div class="icon-btn">Open</div>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

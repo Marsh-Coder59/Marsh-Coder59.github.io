@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard — Muholo Invest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#081026;
+      --panel:#071428;
+      --card:#0f1724;
+      --muted:#9eb7d9;
+      --accent:#3b82f6;
+      --accent-2:#60c5d9;
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --txt:#e8f1ff;
+      font-family: 'Inter', system-ui, 'Segoe UI', Roboto, Helvetica, Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#133171 0%, var(--bg) 100%);
+      color:var(--txt);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:26px;
+    }
+
+    .wrap{max-width:1250px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:20px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#001022;box-shadow:0 8px 30px rgba(59,130,246,0.12)}
+    .title h1{margin:0;font-size:18px}
+    .title p{margin:0;font-size:12px;color:var(--muted)}
+
+    /* main grid */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:20px;
+      align-items:start;
+    }
+
+    /* left column */
+    .main {
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .hero {
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.65);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .hero-left{display:flex;flex-direction:column;gap:8px}
+    .hero .muted{color:var(--muted);font-size:13px}
+    .big-balance{font-size:28px;font-weight:800}
+    .hero-actions{display:flex;gap:8px}
+
+    .btn{
+      background:var(--accent);
+      color:white;
+      border:none;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 6px 18px rgba(59,130,246,0.18);
+    }
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--txt);box-shadow:none}
+
+    /* stats row */
+    .stats{display:flex;gap:14px}
+    .stat-card{
+      flex:1;
+      background:var(--card);
+      padding:14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow:0 8px 24px rgba(2,6,23,0.5);
+    }
+    .stat-card .label{color:var(--muted);font-size:13px}
+    .stat-card .value{font-weight:800;font-size:20px;margin-top:6px}
+
+    /* chart area */
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:14px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 8px 30px rgba(2,6,23,0.55);
+    }
+
+    .panel h3{margin:0 0 8px 0;color:#cfe1ff}
+
+    .chart-wrap{display:flex;gap:12px;align-items:flex-start}
+    .chart-left{flex:1;min-height:300px}
+    .chart-right{width:220px}
+
+    /* transactions & form */
+    .txs{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .tx-list{flex:1}
+    .tx-form{width:320px;background:var(--card);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .tx-form input,.tx-form select{width:100%;padding:10px;border-radius:8px;border:none;background:var(--glass);color:var(--txt);margin-bottom:8px}
+    .tx-form button{width:100%;padding:10px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-weight:700}
+
+    table{width:100%;border-collapse:collapse;margin-top:8px}
+    td,th{padding:8px;text-align:left;border-bottom:1px dashed rgba(255,255,255,0.03);font-size:13px;color:var(--muted)}
+    th{font-weight:700;color:#cfe1ff}
+
+    /* right column */
+    .aside{display:flex;flex-direction:column;gap:14px}
+    .card-compact{background:var(--panel);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .compact-title{font-size:13px;color:var(--muted);margin-bottom:8px}
+    .category-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid rgba(255,255,255,0.02)}
+    .legend-dot{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:8px;vertical-align:middle}
+
+    /* responsive */
+    @media (max-width:1000px){
+      .grid{grid-template-columns:1fr}
+      .chart-right{width:100%}
+      .tx-form{width:100%}
+      .txs{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">MI</div>
+        <div class="title">
+          <h1>MuholoPay — Dashboard</h1>
+          <p>Overview • Insights • Quick actions</p>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="color:var(--muted);font-size:13px">Welcome, John</div>
+        <button class="btn ghost" onclick="location.href='comingsoon.html'">Settings</button>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- LEFT -->
+      <div class="main">
+
+        <!-- HERO -->
+        <div class="hero">
+          <div class="hero-left">
+            <div class="muted">Total Wallet Balance</div>
+            <div class="big-balance" id="balanceMain">$ 5,320</div>
+            <div class="muted" style="font-size:13px">Available across accounts • <strong id="delta">+3.4%</strong></div>
+          </div>
+          <div class="hero-actions">
+            <button class="btn" onclick="location.href='comingsoon.html'">Add Funds</button>
+            <button class="btn ghost" onclick="location.href='comingsoon.html'">Transactions</button>
+          </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats">
+          <div class="stat-card">
+            <div class="label">This Month</div>
+            <div class="value" id="statMonth">$ 2,340</div>
+            <div class="muted" style="margin-top:6px;font-size:13px">vs last month <strong id="statDelta">-8.2%</strong></div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Savings Goal</div>
+            <div class="value" id="statGoal">$ 8,000</div>
+            <div class="muted" style="margin-top:6px;font-size:13px">Progress <strong id="goalPct">35%</strong></div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Available Credit</div>
+            <div class="value" id="statCredit">$ 10,000</div>
+            <div class="muted" style="margin-top:6px;font-size:13px">Credit line • instant use</div>
+          </div>
+        </div>
+
+        <!-- MAIN CHART -->
+        <div class="panel">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="muted">Spending Overview</div>
+              <h3>This Year — Monthly totals</h3>
+            </div>
+            <div class="muted" style="font-size:13px">Currency: $</div>
+          </div>
+
+          <div class="chart-wrap" style="margin-top:12px">
+            <div class="chart-left panel" style="padding:10px">
+              <canvas id="mainLineChart" style="width:100%;height:260px"></canvas>
+            </div>
+
+            <div class="chart-right">
+              <div class="card-compact">
+                <div class="compact-title">Category Breakdown</div>
+                <canvas id="miniDough" style="width:100%;height:140px"></canvas>
+                <div style="margin-top:8px">
+                  <div class="category-row"><div><span class="legend-dot" style="background:#7f5af0"></span>Food</div><div id="catFood">$ 4,560</div></div>
+                  <div class="category-row"><div><span class="legend-dot" style="background:#4fd1c5"></span>Transport</div><div id="catTransport">$ 1,420</div></div>
+                  <div class="category-row"><div><span class="legend-dot" style="background:#ffd166"></span>Bills</div><div id="catBills">$ 2,600</div></div>
+                </div>
+              </div>
+
+              <div class="card-compact" style="margin-top:12px">
+                <div class="compact-title">Quick Actions</div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <button class="btn" onclick="autoSave()">Auto-Save $ 500</button>
+                  <button class="btn ghost" onclick="setBudget()">Set Budget</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRANSACTIONS + FORM -->
+        <div class="panel txs">
+          <div class="tx-list" style="flex:1">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div class="muted">Recent Transactions</div>
+              <div class="muted" style="font-size:13px" id="txCount">0 items</div>
+            </div>
+            <table>
+              <thead>
+                <tr><th>Date</th><th>Note</th><th>Category</th><th style="text-align:right">Amount</th></tr>
+              </thead>
+              <tbody id="txTable"></tbody>
+            </table>
+          </div>
+
+          <div class="tx-form">
+            <div style="font-weight:700;margin-bottom:8px">Add Transaction</div>
+            <input id="txAmount" type="number" placeholder="Amount (KES)" />
+            <select id="txCategory">
+              <option value="Food">Food</option>
+              <option value="Transport">Transport</option>
+              <option value="Bills">Bills</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Others">Others</option>
+            </select>
+            <input id="txDate" type="date" />
+            <input id="txNote" type="text" placeholder="Note (optional)" />
+            <button id="addTx" class="btn">Add Transaction</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <aside class="aside">
+        <div class="card-compact">
+          <div class="compact-title">Profile</div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#001022">J</div>
+            <div>
+              <div style="font-weight:700">John Livingston</div>
+              <div class="muted" style="font-size:13px">Owner • Washigton, USA</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-compact">
+          <div class="compact-title">Notifications</div>
+          <div style="font-size:13px;color:var(--muted)">No new notifications</div>
+        </div>
+
+        <div class="card-compact">
+          <div class="compact-title">Shortcuts</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+            <button class="btn ghost" onclick="location.href='investment.html'">Open Investments</button>
+            <button class="btn ghost" onclick="location.href='comingsoon.html'">View Transactions</button>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+
+    <footer style="margin-top:20px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center">
+      <div>© 2025 MuholoPay • Demo dashboard</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn ghost" id="exportCsv">Export CSV</button>
+        <button class="btn ghost" id="resetDemo">Reset</button>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Demo data (same style as your previous demo but simplified)
+    const demoTransactions = [
+      {date:'2025-11-05', category:'Food', amount:1200, note:'Groceries'},
+      {date:'2025-11-07', category:'Transport', amount:340, note:'Fuel'},
+      {date:'2025-10-23', category:'Bills', amount:2600, note:'Electricity'},
+      {date:'2025-09-11', category:'Shopping', amount:890, note:'Shoes'},
+      {date:'2025-11-10', category:'Food', amount:540, note:'Eating out'},
+      {date:'2025-11-16', category:'Transport', amount:210, note:'Matatu'},
+      {date:'2025-08-02', category:'Others', amount:1500, note:'Gift'},
+      {date:'2025-07-12', category:'Food', amount:400, note:'Snacks'}
+    ];
+    let transactions = JSON.parse(localStorage.getItem('mp_tx')) || demoTransactions.slice();
+
+    const categories = ['Food','Transport','Bills','Shopping','Others'];
+
+    function fmt(n){ return new Intl.NumberFormat('en-KE',{style:'currency',currency:'$',maximumFractionDigits:0}).format(n) }
+
+    // build monthly series for 12 months
+    function monthKey(d){const dt=new Date(d);return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')}
+    function buildMonthly(){
+      const now = new Date();
+      const months = [];
+      for(let i=11;i>=0;i--){
+        const dt = new Date(now.getFullYear(), now.getMonth()-i, 1);
+        months.push({label: dt.toLocaleString('default',{month:'short'}), key: monthKey(dt), value:0});
+      }
+      transactions.forEach(t=>{
+        const k = monthKey(t.date);
+        const m = months.find(x=>x.key===k);
+        if(m) m.value += Number(t.amount);
+      });
+      return months;
+    }
+
+    function buildCategoryTotals(){
+      const map={}; categories.forEach(c=>map[c]=0);
+      transactions.forEach(t=> map[t.category]=(map[t.category]||0)+Number(t.amount));
+      return categories.map(c=>map[c]);
+    }
+
+    // render table
+    function renderTable(){
+      const tbody = document.getElementById('txTable'); tbody.innerHTML='';
+      const rows = transactions.slice().sort((a,b)=>new Date(b.date)-new Date(a.date));
+      rows.slice(0,8).forEach(r=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td style="color:var(--muted)">${r.date}</td><td>${r.note||''}</td><td>${r.category}</td><td style="text-align:right;font-weight:700">${fmt(r.amount)}</td>`;
+        tbody.appendChild(tr);
+      });
+      document.getElementById('txCount').textContent = rows.length + ' items';
+    }
+
+    // calculate metrics
+    function calcMonthlySpending(){
+      const now = new Date(); const key = monthKey(now);
+      return transactions.reduce((s,t)=> s + (monthKey(t.date)===key ? Number(t.amount):0), 0);
+    }
+    function calcWallet(){
+      const initial = 60000;
+      const spent = transactions.reduce((s,t)=>s+Number(t.amount),0);
+      return Math.max(0, initial - spent);
+    }
+    function calcProjection(){
+      const months=buildMonthly().map(m=>m.value);
+      const last3 = months.slice(-3);
+      return Math.round(last3.reduce((a,b)=>a+b,0)/3||0);
+    }
+
+    // Charts
+    let lineChart, doughChart;
+    function initCharts(){
+      const ctx = document.getElementById('mainLineChart').getContext('2d');
+      const months = buildMonthly();
+      lineChart = new Chart(ctx, {
+        type:'line',
+        data:{ labels: months.map(m=>m.label), datasets:[{
+          label:'Monthly spend', data: months.map(m=>m.value),
+          fill:true, tension:0.35, pointRadius:4,
+          backgroundColor: getGradient(ctx), borderColor:'#7f5af0'
+        }]},
+        options:{plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}}}
+      });
+
+      const dctx = document.getElementById('miniDough').getContext('2d');
+      doughChart = new Chart(dctx, {
+        type:'doughnut',
+        data:{ labels:categories, datasets:[{ data: buildCategoryTotals(), backgroundColor:['#7f5af0','#4fd1c5','#ffd166','#ff8a65','#9be7ff'] }] },
+        options:{plugins:{legend:{display:false}}}
+      });
+    }
+
+    function getGradient(ctx){
+      const g = ctx.createLinearGradient(0,0,0,300);
+      g.addColorStop(0,'rgba(127,90,240,0.85)');
+      g.addColorStop(1,'rgba(79,209,197,0.08)');
+      return g;
+    }
+
+    function updateCharts(){
+      const months = buildMonthly();
+      lineChart.data.labels = months.map(m=>m.label);
+      lineChart.data.datasets[0].data = months.map(m=>m.value);
+      lineChart.update();
+      doughChart.data.datasets[0].data = buildCategoryTotals();
+      doughChart.update();
+    }
+
+    // UI refresh
+    function refresh(){
+      renderTable();
+      updateCharts();
+      document.getElementById('statMonth').textContent = fmt(calcMonthlySpending());
+      document.getElementById('balanceMain').textContent = fmt(calcWallet());
+      document.getElementById('projection').textContent = fmt(calcProjection());
+      // category labels
+      const totals = buildCategoryTotals();
+      document.getElementById('catFood').textContent = fmt(totals[0]||0);
+      document.getElementById('catTransport').textContent = fmt(totals[1]||0);
+      document.getElementById('catBills').textContent = fmt(totals[2]||0);
+    }
+
+    // Add transaction
+    document.getElementById('addTx').addEventListener('click',()=>{
+      const amt = Number(document.getElementById('txAmount').value);
+      const cat = document.getElementById('txCategory').value;
+      const date = document.getElementById('txDate').value || new Date().toISOString().slice(0,10);
+      const note = document.getElementById('txNote').value;
+      if(!amt || amt <=0){ alert('Enter valid amount'); return; }
+      const tx = { date, category:cat, amount:amt, note };
+      transactions.push(tx);
+      localStorage.setItem('mp_tx', JSON.stringify(transactions));
+      document.getElementById('txAmount').value=''; document.getElementById('txNote').value=''; document.getElementById('txDate').value='';
+      updateCharts(); refresh();
+    });
+
+    // quick actions
+    function autoSave(){
+      transactions.push({ date: new Date().toISOString().slice(0,10), category:'Savings', amount:500, note:'Auto-save' });
+      localStorage.setItem('mp_tx', JSON.stringify(transactions));
+      updateCharts(); refresh();
+      alert('Auto-saved $ 500');
+    }
+    function setBudget(){ const b = prompt('Set monthly budget (KES)','20000'); if(b) alert('Budget saved'); }
+
+    // export CSV & reset
+    document.getElementById('exportCsv').addEventListener('click', ()=>{
+      const csv = transactions.map(t=>`${t.date},"${(t.note||'').replace(/"/g,'""')}",${t.category},${t.amount}`).join('\n');
+      const blob = new Blob([`Date,Note,Category,Amount\n${csv}`], {type:'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='transactions.csv'; a.click(); URL.revokeObjectURL(url);
+    });
+    document.getElementById('resetDemo').addEventListener('click', ()=>{
+      if(confirm('Reset demo data?')){ localStorage.removeItem('mp_tx'); transactions = demoTransactions.slice(); refresh(); updateCharts(); }
+    });
+
+    // init
+    window.onload = ()=>{
+      initCharts();
+      refresh();
+    };
+  </script>
+</body>
+</html>
