@@ -107,21 +107,24 @@
         }
 
         .feature-grid{
-            max-width: 1100px;
             margin: 40px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 30px;
+               display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+           
+            line-height: 60px;
         }
 
         .feature-card{
-            background: white;
+            background: rgb(93, 212, 255);
             padding: 45px 30px;
             border-radius: 14px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.07);
             transition: 0.3s;
             position: relative;          /* Needed so video stays inside */
-            overflow: hidden;            /* Clips video so it stays inside the card */
+            overflow: hidden;  
+                    /* Clips video so it stays inside the card */
     
         }
 
@@ -147,6 +150,78 @@
             margin-bottom: 15px;
             font-weight: 700;
         }
+
+        /* Long Feature Blocks */
+.long-features {
+    padding: 80px 40px;
+}
+
+.long-feature {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 120px;
+    gap: 40px;
+}
+
+.long-feature.reverse {
+    flex-direction: row-reverse;
+}
+
+.lf-text {
+    flex: 1;
+}
+
+.lf-text h2 {
+    font-size: 40px;
+    color: #085ef7;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.lf-text p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.lf-btn {
+    display: inline-block;
+    padding: 14px 28px;
+    background: #085ef7;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.lf-btn:hover {
+    background: #004cd4;
+}
+
+.lf-img img {
+    width: 520px;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+    height: 250px;
+}
+
+@media(max-width: 800px){
+    .long-feature {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .long-feature.reverse {
+        flex-direction: column;
+    }
+
+    .lf-img img {
+        width: 100%;
+    }
+}
+
 
         /* Trust Section */
         .trust{
@@ -207,6 +282,24 @@
     cursor: pointer;
 }
 
+.videos{
+    height:10cm;
+    max-width:max-content;
+}
+
+.nice-marquee {
+    background: rgba(24, 4, 126, 0.12);   /* soft blue */
+    color: #0536f8;                        /* light blue text */
+    padding: 12px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-top: 1px solid rgba(0, 150, 255, 0.4);
+    border-bottom: 1px solid rgba(2, 84, 143, 0.4);
+    backdrop-filter: blur(2px);
+    letter-spacing: 0.5px;
+}
+
+
 
         /* Waitlist Section */
         .waitlist{
@@ -253,6 +346,51 @@
             cursor: pointer;
             margin-top: 10px;
         }
+        .long-feature {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 50px 0;
+}
+
+/* Video on the left */
+.long-feature .video {
+    width: 50%;
+    max-height: 400px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+/* Text on the right */
+.lf-text {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.lf-btn {
+    background: #0084ff;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    width: fit-content;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .long-feature {
+        flex-direction: column;
+    }
+
+    .long-feature .video,
+    .lf-text {
+        width: 100%;
+    }
+}
+
 
         footer{
             padding: 20px;
@@ -274,7 +412,7 @@
 
     <!-- Header -->
     <header>
-        <div class="logo">EasyPay<span>Pro</span></div>
+        <div class="logo">MuholoPay</div>
         <nav>
             <a href="#features">Features</a>
             <a href="#waitlist">Waitlist</a>
@@ -291,61 +429,63 @@
     </section>
 
     <!-- Features -->
-    <section class="features" id="features">
-        <h2>What Makes MuholoPay Powerful</h2>
+   <!-- CORE FEATURES SECTION (Long and Attractive) -->
+<section class="long-features">
 
-        <div class="feature-grid">
-            <div class="feature-card">
-                <video class="bg-video" autoplay loop muted playsinline>
-                    <source src="4.mp4" type="video/mp4">
-                </video>
-                <h3>Instant Payouts and withdrawals</h3>
-                <p>Withdraw money instantly to mobile wallets & other payment options Globally.</p>
-            </div>
-
-            <div class="feature-card">
-                 <video class="bg-video" autoplay loop muted playsinline>
-                    <source src="5.mp4" type="video/mp4">
-                </video>
-                <h3>Smart Dashboard</h3>
-                <p>Track your earnings, trends and growth metrics easily.</p>
-            </div>
-
-           <div class="feature-card">
-             <video class="bg-video" autoplay loop muted playsinline>
-                    <source src="1.mp4" type="video/mp4">
-                </video>
-                <h3>Invest in Stocks</h3>
-                <p>Buy shares from top global companies and grow your wealth with real-time market updates.</p>
-            </div>
-
-            <div class="feature-card">
-                 <video class="bg-video" autoplay loop muted playsinline>
-                    <source src="3.mp4" type="video/mp4">
-                </video>
-                <h3>Invest in Crypto</h3>
-                <p>Trade leading cryptocurrencies instantly with secure wallets and transparent price tracking.</p>
-            </div>
-
-            <div class="feature-card">
-                 
-                    <img class="bg-video"
-                     src="123.png"> 
-                
-                <h3>Invest in ETFs</h3>
-                <p>Diversify easily by investing in bundles of assets managed by top market experts.</p>
-            </div>
-
-             <div class="feature-card">
-                 
-                    <img class="bg-video"
-                     src="Screenshot (382).png"> 
-                
-                <h3>Manage investment portfolio</h3>
-                <p>Easily manage by investing in the assets provided and managed by top market experts.</p>
-            </div>
+    <!-- Feature 1 -->
+    <div class="long-feature">
+        <div class="lf-text">
+            <h2>Instant Payouts</h2>
+            <p>Withdraw money instantly to PayPal, M-PESA, bank accounts, card and more—globally.</p>
+            <a href="transaction.html" class="lf-btn">Learn More</a>
         </div>
-    </section>
+
+        <div class="lf-img">
+            <img src="b.png" alt="Instant withdrawals screenshot">
+        </div>
+    </div>
+
+    <!-- Feature 2 -->
+ <!-- Feature 2 -->
+<div class="long-feature">
+    <video class="video" autoplay loop muted playsinline>
+        <source src="abc.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="lf-text">
+        <h2>Smart Dashboard</h2>
+        <p>Track your earnings, spending, savings and performance with clean real-time analytics.</p>
+        <a href="dashboard.html" class="lf-btn">View Dashboard</a>
+    </div>
+</div>
+
+      
+  
+ 
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="long-feature">
+        <div class="lf-text">
+            <h2>Invest in Stocks & Crypto</h2>
+            <p>Buy stocks, crypto and assets from global providers with real-time charts and powerful tools.</p>
+            <a href="investment.html" class="lf-btn">Explore Investments</a>
+        </div>
+
+        <div class="lf-img">
+            <img src="a.png" alt="Investing feature screenshot">
+        </div>
+    </div>
+
+   <marquee class="nice-marquee" direction="left" scrollamount="5"
+    onmouseover="this.stop();" onmouseout="this.start();">
+    And many more advanced features coming… This is just the tip of the iceberg.
+</marquee>
+
+
+</section>
+
 
     <section class="features">
     <h2>Why Choose EasyPayPro?</h2>
